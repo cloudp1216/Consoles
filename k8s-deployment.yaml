@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consoles
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: consoles
+      version: v1.6.3
+  template:
+    metadata:
+      labels:
+        app: consoles
+        version: v1.6.3
+    spec:
+      containers:
+      - name: consoles
+        image: cloudp1216/consoles:v1.6.3
+        env:
+        - name: "SysUser"
+          value: "admin password"
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: consoles-svc
+  namespace: default
+spec:
+  selector:
+    app: consoles
+    version: v1.6.3
+  type: NodePort
+  ports:
+  - name: https
+    port: 80
+    targetPort: 443

@@ -1,0 +1,12 @@
+version: "3"
+services:
+  consoles:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: consoles:v1.6.3
+    ports:
+    - 8080:443/tcp
+    environment:
+      SysUser: "admin password"
+
